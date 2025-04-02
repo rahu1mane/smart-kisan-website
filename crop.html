@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crops</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>Smart Kisan</h1>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="./crop.html">Crops</a></li>
+
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- Crops Container -->
+    <div class="crop-container" id="cropList"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("crop_data.json")
+          .then((response) => response.json())
+          .then((data) => {
+            let cropList = document.getElementById("cropList");
+
+            data.forEach((crop) => {
+              let cropBox = document.createElement("div");
+              cropBox.className = "crop-box";
+
+              let cropImage = document.createElement("img");
+              cropImage.src = `images/${crop["Crop Name"].toLowerCase()}.jpg`; // Ensure images are named correctly
+              cropImage.alt = crop["Crop Name"];
+              cropImage.className = "crop-img";
+
+              let cropName = document.createElement("p");
+              cropName.innerText = crop["Crop Name"];
+              cropName.className = "crop-name";
+
+              cropBox.appendChild(cropImage);
+              cropBox.appendChild(cropName);
+
+              cropBox.addEventListener("click", function () {
+                window.location.href = `crop_details.html?name=${encodeURIComponent(
+                  crop["Crop Name"]
+                )}`;
+              });
+
+              cropList.appendChild(cropBox);
+            });
+          })
+          .catch((error) => console.error("Error loading crops:", error));
+      });
+    </script>
+  </body>
+</html>
