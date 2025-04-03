@@ -422,3 +422,13 @@ body {
     text-decoration: underline;
   }
   /* Blurred Background for Welcome Section */
+.back_button{
+    display: flex;
+    background-color: green;
+    max-width: 56px;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 5px;
+    cursor: pointer ;
+    color: white;
+}
